@@ -67,4 +67,5 @@ public class CalendarController {
 
         return ResponseEntity.ok(calendarService.getEventsByDate(date));
     }
+    
 }
