@@ -8,4 +8,6 @@ import com.julian.calendar.model.EventDto;
 public interface CalendarService {
    
     Map<String, List<EventDto>> getEventsByDate(LocalDate date) throws Exception;
+    
+    String getAgendaMessage(LocalDate date) throws Exception;
 }
