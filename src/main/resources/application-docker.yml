@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: calendar
+  jackson:
+    time-zone: Europe/Madrid
+
+logging:
+  file:
+    path: ./target/
+    name: ${spring.application.name}
+    level:
+      com.julian: DEBUG
+      org.springframework.boot: INFO
+      org.springframework.web: INFO
+
+springdoc:
+   swagger-ui:
+     operationsSorter: alpha
+     tagsSorter: alpha    
