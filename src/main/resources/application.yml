@@ -20,3 +20,11 @@ springdoc:
    swagger-ui:
      operationsSorter: alpha
      tagsSorter: alpha          
+# =========================
+# GOOGLE CONFIG (CLAVE)
+# =========================
+google:
+   credentials:
+     path: ${GOOGLE_CREDENTIALS:src/main/resources/credentials.json}
+     tokens:
+         path: ${GOOGLE_TOKENS:./tokens}
