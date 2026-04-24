@@ -19,7 +19,12 @@ logging:
 springdoc:
    swagger-ui:
      operationsSorter: alpha
-     tagsSorter: alpha          
+     tagsSorter: alpha     
+     
+notificator:
+   url: "http://jgf78.duckdns.org:8083/api/messages/send"
+        
+  
 # =========================
 # GOOGLE CONFIG (CLAVE)
 # =========================
