@@ -43,11 +43,13 @@ public class CalendarServiceImpl implements CalendarService {
 
         log.info("Consultando calendarios {} para la fecha {}", calendars, date);
 
-        ZonedDateTime startOfDay = date.atStartOfDay(ZoneId.systemDefault());
-        ZonedDateTime endOfDay = startOfDay.plusDays(1);
+        ZoneId zone = ZoneId.of("Europe/Madrid");
 
-        DateTime min = new DateTime(startOfDay.toInstant().toEpochMilli());
-        DateTime max = new DateTime(endOfDay.toInstant().toEpochMilli());
+        ZonedDateTime start = date.atStartOfDay(zone);
+        ZonedDateTime end = start.plusDays(1);
+
+        DateTime min = new DateTime(start.toInstant().toString());
+        DateTime max = new DateTime(end.toInstant().toString());
 
         return calendars.stream().flatMap(calendar -> {
 
@@ -59,6 +61,7 @@ public class CalendarServiceImpl implements CalendarService {
                         .list(calendarId)
                         .setTimeMin(min)
                         .setTimeMax(max)
+                        .setTimeZone("Europe/Madrid")
                         .setSingleEvents(true)
                         .execute()
                         .getItems();
@@ -71,10 +74,10 @@ public class CalendarServiceImpl implements CalendarService {
 
                 return events.stream()
                         .map(e -> new EventDto(
-                                calendarName, 
+                                calendarName,
                                 e.getSummary(),
-                                e.getStart() != null ? e.getStart().getDateTime() : null,
-                                e.getEnd() != null ? e.getEnd().getDateTime() : null
+                                getStart(e),  
+                                getEnd(e)
                         ));
 
             } catch (Exception e) {
@@ -129,6 +132,22 @@ public class CalendarServiceImpl implements CalendarService {
         return sb.toString();
     }
 
+    private DateTime getStart(Event e) {
+        if (e.getStart() == null) return null;
+
+        return e.getStart().getDateTime() != null
+                ? e.getStart().getDateTime()
+                : e.getStart().getDate();
+    }
+
+    private DateTime getEnd(Event e) {
+        if (e.getEnd() == null) return null;
+
+        return e.getEnd().getDateTime() != null
+                ? e.getEnd().getDateTime()
+                : e.getEnd().getDate();
+    }
+
     private OffsetDateTime safeDate(EventDto e) {
         try {
             return e.start() != null
@@ -139,13 +158,13 @@ public class CalendarServiceImpl implements CalendarService {
         }
     }
 
-    private String formatHour(Object start) {
+    private String formatHour(DateTime start) {
         try {
             if (start == null) return null;
 
             String raw = start.toString();
 
-            if (!raw.contains("T")) return null;
+            if (!raw.contains("T")) return null; 
 
             return OffsetDateTime.parse(raw)
                     .toLocalTime()
