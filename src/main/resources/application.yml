@@ -29,7 +29,26 @@ notificator:
 # GOOGLE CONFIG (CLAVE)
 # =========================
 google:
-   credentials:
-     path: ${GOOGLE_CREDENTIALS:src/main/resources/credentials.json}
-   tokens:
-     path: ${GOOGLE_TOKENS:./tokens}
+  service:
+    account:
+      path: ${GOOGLE_SERVICE_ACCOUNT:src/main/resources/service-account.json}
+  calendar:
+    items:
+      - id: julian.rss.android@gmail.com
+        name: "Personal"
+      - id: 07ajbkskhrqd2k43ccagv2u6o4@group.calendar.google.com
+        name: "Efemérides"
+      - id: 5uetm3o8mestoi68d9gefhs6qo@group.calendar.google.com
+        name: "Facturas"
+      - id: co3m4vv7u8o9pde752o3v7ffpg@group.calendar.google.com
+        name: "Médico mamá"
+      - id: 29974feedc2cbd1fc93d11370ba26a3924bae84621d8b70e34292e5acec1e4f5@group.calendar.google.com
+        name: "Santa Pola"
+      - id: nbhl5tl8ljgu520rbme2mqkc1c@group.calendar.google.com
+        name: "Vacaciones"
+      - id: es.christian#holiday@group.v.calendar.google.com
+        name: "Festivos cristianos"
+      - id: es.spain#holiday@group.v.calendar.google.com
+        name: "Festivos España"
+
+      
