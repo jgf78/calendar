@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  mycv:
+  calendar:
     image: jgf78/calendar:latest
     container_name: calendar
     ports:
